@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; scroll-padding-top: 5rem; color-scheme: dark; }
+  body { @apply bg-night font-sans text-cream antialiased; }
+  h1, h2, h3 { @apply font-display font-medium text-cream; }
+  :focus-visible { outline: 2px solid theme("colors.caramel.300"); outline-offset: 3px; border-radius: 4px; }
+  ::selection { background: theme("colors.caramel.DEFAULT"); color: theme("colors.night.DEFAULT"); }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-page { @apply mx-auto w-full max-w-6xl px-5 sm:px-8; }
+  .eyebrow { @apply text-[0.7rem] font-medium uppercase tracking-eyebrow text-caramel; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-60; }
+  .btn-primary { @apply bg-caramel-600 text-cream-50 hover:bg-caramel hover:-translate-y-0.5; }
+  .btn-secondary { @apply border border-caramel/60 text-cream hover:border-caramel hover:bg-caramel/10; }
+  .btn-light { @apply bg-cream text-night hover:bg-cream-50; }
+  .field-label { @apply mb-1.5 block text-sm font-medium text-cream; }
+  .field-input { @apply w-full rounded-lg border border-line bg-night px-4 py-3 text-base text-cream placeholder:text-mist/60 transition-colors focus:border-caramel focus:outline-none focus:ring-1 focus:ring-caramel; }
+  .field-input[aria-invalid="true"] { @apply border-red-400/70; }
+  .field-error { @apply mt-1.5 text-sm text-red-300; }
+  .panel { @apply border border-line bg-surface; }
+  .reveal { transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal-hidden { opacity: 0; transform: translateY(16px); }
+
+  /* Зерно плёнки поверх тёмных поверхностей */
+  .grain { position: relative; isolation: isolate; }
+  .grain::after {
+    content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0.07; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  .hairline-v { @apply w-px self-stretch bg-line; }
+}
